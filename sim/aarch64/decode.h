@@ -131,7 +131,7 @@ mask32 (int hi, int lo)
 
 /* 64 bit mask with bits [hi,...,lo] set.  */
 static inline uint64_t
-mask64 (int hi, int lo)
+mask64 (int hi, int lo) // Return 000...1(hi)111...1111(lo)000...000
 {
   int nbits = (hi + 1) - lo;
   return ((1L << nbits) - 1) << lo;
@@ -146,7 +146,7 @@ pick32 (uint32_t val, int hi, int lo) // Return uint64_t ones from lo to hi
 
 /* Pick bits [hi,...,lo] from val.  */
 static inline uint64_t
-pick64 (uint64_t val, int hi, int lo)
+pick64 (uint64_t val, int hi, int lo) // val & mask64(hi, lo)
 {
   return val & mask64 (hi, lo);
 }
@@ -172,7 +172,7 @@ pickbits32 (uint32_t val, int hi, int lo)
 
 /* Mask [hi,lo] and shift down to start at bit 0.  */
 static inline uint64_t
-pickbits64 (uint64_t val, int hi, int lo)
+pickbits64 (uint64_t val, int hi, int lo) // pick64(val, hi, lo) and shift down to start at bit 0
 {
   return pick64 (val, hi, lo) >> lo;
 }
